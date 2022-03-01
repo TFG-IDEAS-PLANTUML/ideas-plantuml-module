@@ -81,7 +81,6 @@ public class ExampleUtil {
 
         try (OutputStream os = new FileOutputStream("src/main/resources/classDiagram.png")) {
             ImageData imageData = classDiagram.exportDiagram(os, 0, new FileFormatOption(FileFormat.PNG));
-            //System.out.println("generateFromApi: " + classDiagram.getDescription().getDescription());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,7 +115,6 @@ public class ExampleUtil {
         diagram.makeDiagramReady();
         try (OutputStream os = new FileOutputStream("src/main/resources/sequenceDiagram.png")) {
             ImageData imageData = diagram.exportDiagram(os, 0, new FileFormatOption(FileFormat.PNG));
-            System.out.println("generateFromApi: " + diagram.getDescription().getDescription());
         } catch (IOException e) {
             e.printStackTrace();
         }
