@@ -1,0 +1,20 @@
+{
+  "id": "ideas-plantuml-language",
+  "extension": "puml",
+  "name": "PlantUml",
+  "defaultFileName": "default.puml",
+  "formats": [
+    {
+      "format": "puml",
+      "editorModeId": "ace/mode/PlantUml",
+      "_editorModeURI": "mode-PlantUml.js",
+      "editorThemeId": "ace/theme/PlantUml",
+      "_editorThemeId": "theme-PlantUml.js",
+      "checkLanguage": "true"
+    }
+  ],
+  "operations": [],
+  "templateProjects": null,
+  "templateFiles": null,
+  "inspectorLoader": "function(loader, format) {}"
+}

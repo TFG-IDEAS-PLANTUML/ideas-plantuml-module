@@ -17,6 +17,7 @@
     <packaging>war</packaging>
 
     <properties>
+        <ideas.base.module.version>0.7</ideas.base.module.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -24,6 +25,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>es.us.isa.ideas</groupId>
+            <artifactId>ideas-base-module</artifactId>
+            <version>${ideas.base.module.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
