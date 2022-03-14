@@ -2,14 +2,27 @@
   "id": "ideas-plantuml-language",
   "extension": "puml",
   "name": "PlantUml",
+  "defaultFileName": "default.puml",
   "formats": [
     {
       "format": "puml",
+      "editorModeId": "ace/mode/puml",
+      "_editorModeURI": "mode-puml.js",
+      "editorThemeId": "ace/theme/puml",
+      "_editorThemeURI": "theme-puml.js",
       "checkLanguage": "true"
     }
   ],
-  "operations": [],
-  "templateProjects":null,
-  "templateFiles":null,
+  "operations": [
+    {
+      "id": "generate_diagram",
+      "name": "Generate diagram",
+      "data": {},
+      "_remoteExecution": "false",
+      "action": ""
+    }
+  ],
+  "templateProjects": null,
+  "templateFiles": null,
   "inspectorLoader": "function(loader, format) {}"
 }
