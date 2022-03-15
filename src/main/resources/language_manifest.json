@@ -2,7 +2,7 @@
   "id": "ideas-plantuml-language",
   "extension": "puml",
   "name": "PlantUml",
-  "defaultFileName": "default.puml",
+  "defaultFileName": "default",
   "formats": [
     {
       "format": "puml",
@@ -41,26 +41,30 @@
 	        return new File([u8arr], filename, {type:mime});
 		}
 
-		var file = dataURLtoFile('data:image/png;base64,' + result.data, 'fichero.png');
-		alert(file);
+        var parts = fileUri.split('/');
 
+		var file = dataURLtoFile('data:image/png;base64,' + result.data, new String(parts[parts.length - 1])+'.png');
 		var formData = new FormData();
 		formData.append('file', file);
+
+        var toJoin = parts.slice(1, -1);
+
+        var toFolder = toJoin.join('/');
 
 		$.ajax({
             type: 'POST',
             enctype: 'multipart/form-data',
-            url: 'files/upload/example/custom',
+            url: 'files/upload/'+ toFolder,
             data: formData,
             processData: false,
             contentType: false,
             cache: false,
             timeout: 600000,
             success: function (data) {
-                alert(data);
+                document.write('<div>' + data + '</div>');
             },
             error: function (e) {
-				alert(e);
+                document.write('<div>' + e + '</div>');
             }
         });
 	});

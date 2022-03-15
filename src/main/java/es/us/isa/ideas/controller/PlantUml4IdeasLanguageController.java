@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/ideas-plantuml-language/language")
@@ -33,13 +30,11 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
     @Override
     public AppResponse executeOperation(String id, String content, String fileUri, String username, HttpServletRequest request) {
 
-        //SampleWorkspace/example/folder/fichero.puml
-
         AppResponse appResponse = new AppResponse();
 
         content = cleanContent(content);
 
-        if(id.equals("generate_diagram")){
+        if (id.equals("generate_diagram")) {
             ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
             appResponse.setStatus(AppResponse.Status.OK);
             appResponse.setData(Base64.getEncoder().encodeToString(result.toByteArray()));
@@ -59,7 +54,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         SyntaxResult syntaxResult = validationDiagramService.validateFromString(content);
 
-        boolean problems = syntaxResult.isError();
+        boolean problems = !content.isEmpty() ? syntaxResult.isError() : true;
 
         appResponse.setFileUri(fileUri);
 
@@ -78,7 +73,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
         return new AppResponse();
     }
 
-    private String cleanContent(String content){
+    private String cleanContent(String content) {
         return content.replace("\r", "");
     }
 }

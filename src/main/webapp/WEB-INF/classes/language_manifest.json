@@ -19,7 +19,7 @@
       "name": "Generate diagram",
       "data": {},
       "_remoteExecution": "false",
-      "action": "function(operationStructure){ console.log('estoy aqui' + operationStructure); }"
+      "action": ""
 
     }
   ],
