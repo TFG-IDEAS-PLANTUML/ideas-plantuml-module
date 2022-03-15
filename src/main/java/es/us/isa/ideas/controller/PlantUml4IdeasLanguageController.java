@@ -1,10 +1,13 @@
 package es.us.isa.ideas.controller;
 
+import es.us.isa.ideas.module.common.AppAnnotations;
 import es.us.isa.ideas.module.common.AppResponse;
 import es.us.isa.ideas.module.controller.BaseLanguageController;
 import es.us.isa.ideas.service.GenerateDiagramService;
 import es.us.isa.ideas.service.ValidationDiagramService;
 import net.sourceforge.plantuml.syntax.SyntaxResult;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/ideas-plantuml-language/language")
@@ -59,7 +65,22 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
         appResponse.setFileUri(fileUri);
 
         if (problems) {
+
             appResponse.setStatus(AppResponse.Status.OK_PROBLEMS);
+
+            List<String> errors = new ArrayList<>(syntaxResult.getErrors());
+
+            AppAnnotations[] appAnnotations = new AppAnnotations[errors.size()];
+
+            IntStream.range(0, errors.size()).forEach(x -> {
+                AppAnnotations appAnnotation = new AppAnnotations();
+                appAnnotation.setText(WordUtils.wrap(errors.get(x), 10));
+                appAnnotation.setType("error");
+                appAnnotations[x] = appAnnotation;
+            });
+
+            appResponse.setAnnotations(appAnnotations);
+
         } else
             appResponse.setStatus(AppResponse.Status.OK);
 
