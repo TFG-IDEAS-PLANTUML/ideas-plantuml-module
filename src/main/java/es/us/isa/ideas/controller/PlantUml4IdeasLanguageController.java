@@ -74,7 +74,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
             IntStream.range(0, errors.size()).forEach(x -> {
                 AppAnnotations appAnnotation = new AppAnnotations();
-                appAnnotation.setText(WordUtils.wrap(errors.get(x), 10));
+                appAnnotation.setText(WordUtils.wrap(errors.get(x), 10) + "\n" + syntaxResult.getLineLocation().toString());
                 appAnnotation.setType("error");
                 appAnnotations[x] = appAnnotation;
             });
