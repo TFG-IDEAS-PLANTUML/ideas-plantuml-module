@@ -19,7 +19,52 @@
       "name": "Generate diagram",
       "data": {},
       "_remoteExecution": "false",
-      "action": ""
+      "action": "function(operationStructure){
+
+	var fileUri = EditorManager.currentUri;
+	CommandApi.doDocumentOperation(operationStructure.id, operationStructure.data, fileUri, function (result) {
+
+	    var base64Png = result.data;
+
+	    function dataURLtoFile(dataurl, filename) {
+
+	        var arr = dataurl.split(','),
+	            mime = arr[0].match(/:(.*?);/)[1],
+	            bstr = atob(arr[1]),
+	            n = bstr.length,
+	            u8arr = new Uint8Array(n);
+
+	        while(n--){
+	            u8arr[n] = bstr.charCodeAt(n);
+	        }
+
+	        return new File([u8arr], filename, {type:mime});
+		}
+
+		var file = dataURLtoFile('data:image/png;base64,' + result.data, 'fichero.png');
+		alert(file);
+
+		var formData = new FormData();
+		formData.append('file', file);
+
+		$.ajax({
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            url: 'files/upload/example/custom',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                alert(data);
+            },
+            error: function (e) {
+				alert(e);
+            }
+        });
+	});
+}"
     }
   ],
   "templateProjects": null,

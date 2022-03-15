@@ -19,7 +19,8 @@
       "name": "Generate diagram",
       "data": {},
       "_remoteExecution": "false",
-      "action": ""
+      "action": "function(operationStructure){ console.log('estoy aqui' + operationStructure); }"
+
     }
   ],
   "templateProjects": null,
