@@ -1,0 +1,22 @@
+@startuml
+
+start
+
+:Hello world;
+
+if(condition?) then (yes)
+  :test;
+else (no)
+  while(true?)
+    fork
+        :__This__ is on defined on several **lines**;
+    fork again
+        :__This__ is on defined on several **lines 2**;
+    endfork
+  endwhile
+endif
+
+stop
+
+
+@enduml

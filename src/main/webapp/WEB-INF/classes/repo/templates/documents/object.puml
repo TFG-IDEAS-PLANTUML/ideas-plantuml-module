@@ -1,0 +1,8 @@
+@startuml
+
+object Object
+object Object2
+
+Object2 "*" <- "1" Object
+
+@enduml

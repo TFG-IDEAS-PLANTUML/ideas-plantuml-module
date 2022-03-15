@@ -1,0 +1,12 @@
+@startuml
+
+:User: --> (First usecase)
+"Main administrator" as Admin
+(Another usecase) as (UC2)
+
+usecase UC3
+usecase (Last\nusecase) as US4
+
+Admin --> UC3
+
+@enduml
