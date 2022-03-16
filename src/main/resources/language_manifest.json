@@ -1,0 +1,77 @@
+{
+  "id": "ideas-plantuml-language",
+  "extension": "puml",
+  "name": "PlantUml",
+  "defaultFileName": "default",
+  "formats": [
+    {
+      "format": "puml",
+      "editorModeId": "ace/mode/puml",
+      "_editorModeURI": "mode-puml.js",
+      "editorThemeId": "ace/theme/puml",
+      "_editorThemeURI": "theme-puml.js",
+      "checkLanguage": "true"
+    }
+  ],
+  "operations": [
+    {
+      "id": "generate_diagram",
+      "name": "Generate diagram",
+      "data": {},
+      "_remoteExecution": "false",
+      "action": "function(operationStructure){
+
+	var fileUri = EditorManager.currentUri;
+	CommandApi.doDocumentOperation(operationStructure.id, operationStructure.data, fileUri, function (result) {
+
+	    var base64Png = result.data;
+
+	    function dataURLtoFile(dataurl, filename) {
+
+	        var arr = dataurl.split(','),
+	            mime = arr[0].match(/:(.*?);/)[1],
+	            bstr = atob(arr[1]),
+	            n = bstr.length,
+	            u8arr = new Uint8Array(n);
+
+	        while(n--){
+	            u8arr[n] = bstr.charCodeAt(n);
+	        }
+
+	        return new File([u8arr], filename, {type:mime});
+		}
+
+        var parts = fileUri.split('/');
+
+		var file = dataURLtoFile('data:image/png;base64,' + result.data, new String(parts[parts.length - 1])+'.png');
+		var formData = new FormData();
+		formData.append('file', file);
+
+        var toJoin = parts.slice(1, -1);
+
+        var toFolder = toJoin.join('/');
+
+		$.ajax({
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            url: 'files/upload/'+ toFolder,
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                document.write('<div>' + e + '</div>');
+            }
+        });
+	});
+}"
+    }
+  ],
+  "templateProjects": null,
+  "templateFiles": null,
+  "inspectorLoader": "function(loader, format) {}"
+}

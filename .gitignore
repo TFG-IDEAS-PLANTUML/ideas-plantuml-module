@@ -29,3 +29,5 @@ hs_err_pid*
 #Avoid target folder
 
 target/*
+
+ideas-plantuml-module.iml

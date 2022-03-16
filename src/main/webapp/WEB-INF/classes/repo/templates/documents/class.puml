@@ -1,0 +1,12 @@
+@startuml
+
+class BaseEntity {}
+
+class Person extends BaseEntity{
+    String name
+    void method()
+}
+
+annotation Autowired {}
+
+@enduml
