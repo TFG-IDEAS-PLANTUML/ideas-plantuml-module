@@ -5,6 +5,7 @@ import es.us.isa.ideas.module.common.AppResponse;
 import es.us.isa.ideas.module.controller.BaseLanguageController;
 import es.us.isa.ideas.service.GenerateDiagramService;
 import es.us.isa.ideas.service.ValidationDiagramService;
+import net.sourceforge.plantuml.LineLocation;
 import net.sourceforge.plantuml.syntax.SyntaxResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -72,9 +73,13 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
             AppAnnotations[] appAnnotations = new AppAnnotations[errors.size()];
 
+            LineLocation lineLocation = syntaxResult.getLineLocation();
+
             IntStream.range(0, errors.size()).forEach(x -> {
+
                 AppAnnotations appAnnotation = new AppAnnotations();
-                appAnnotation.setText(WordUtils.wrap(errors.get(x), 10) + "\n" + syntaxResult.getLineLocation().toString());
+                appAnnotation.setText(WordUtils.wrap(errors.get(x), 10));
+                appAnnotation.setRow(String.valueOf(lineLocation.getPosition()));
                 appAnnotation.setType("error");
                 appAnnotations[x] = appAnnotation;
             });
