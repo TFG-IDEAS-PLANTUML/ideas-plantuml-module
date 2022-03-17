@@ -7,30 +7,43 @@ import es.us.isa.ideas.service.GenerateDiagramService;
 import es.us.isa.ideas.service.ValidationDiagramService;
 import net.sourceforge.plantuml.LineLocation;
 import net.sourceforge.plantuml.syntax.SyntaxResult;
-import org.apache.commons.lang3.StringUtils;
+import net.sourceforge.plantuml.theme.ThemeUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.text.WordUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/ideas-plantuml-language/language")
 public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
+    private Logger logger = LoggerFactory.getLogger(PlantUml4IdeasLanguageController.class);
+
     @Autowired
     private ValidationDiagramService validationDiagramService;
 
     @Autowired
     private GenerateDiagramService generateDiagramService;
+
+    private final Function<String, String> cleanContent =
+            content -> content.replace("\r", "");
 
     @PostMapping(value = "/operation/{id}/execute")
     @ResponseBody
@@ -39,7 +52,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         AppResponse appResponse = new AppResponse();
 
-        content = cleanContent(content);
+        content = cleanContent.apply(content);
 
         if (id.equals("generate_diagram")) {
             ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
@@ -47,7 +60,9 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
             String base64 = Base64.getEncoder().encodeToString(result.toByteArray());
             appResponse.setData(base64);
             appResponse.setHtmlMessage("<p> Diagram generated </p>" +
-                    "<img style='display:block; width:100px;height:100px;' src ='data:image/png;base64,"+ base64 +"' />");
+                    "<img style='display:block; width:100px;height:100px;' src ='data:image/png;base64," + base64 + "' />");
+        } else if (id.equals("apply_theme")){
+
         }
 
         return appResponse;
@@ -60,7 +75,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         AppResponse appResponse = new AppResponse();
 
-        content = cleanContent(content);
+        content = cleanContent.apply(content);
 
         SyntaxResult syntaxResult = validationDiagramService.validateFromString(content);
 
@@ -95,14 +110,34 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
         return appResponse;
     }
 
+    @GetMapping(value = "/operation/{id}/javascript")
+    @ResponseBody
+    public AppResponse getJavascriptFile(@PathVariable(value = "id") String id, HttpServletResponse response) {
+
+        AppResponse appResponse = new AppResponse();
+
+
+        try {
+
+            InputStream jsFile = new ClassPathResource("operations/" + id + ".js").getInputStream();
+            OutputStream os = response.getOutputStream();
+            os.write(IOUtils.toByteArray(jsFile));
+            response.setContentType("application/javascript");
+            os.close();
+
+            appResponse.setData(ThemeUtils.getAllThemeNames().stream().collect(Collectors.joining("#")));
+
+        } catch (IOException e) {
+            logger.error("An IO exception happened {}", e);
+        }
+
+        return appResponse;
+    }
+
     @PostMapping(value = "/convert")
     @ResponseBody
     @Override
     public AppResponse convertFormat(String currentFormat, String desiredFormat, String fileUri, String content, HttpServletRequest httpServletRequest) {
         return new AppResponse();
-    }
-
-    private String cleanContent(String content) {
-        return content.replace("\r", "");
     }
 }
