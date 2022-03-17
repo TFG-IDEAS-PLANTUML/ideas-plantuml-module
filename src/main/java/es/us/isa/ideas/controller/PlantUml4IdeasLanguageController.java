@@ -42,9 +42,6 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
     @Autowired
     private GenerateDiagramService generateDiagramService;
 
-    private final Function<String, String> cleanContent =
-            content -> content.replace("\r", "");
-
     @PostMapping(value = "/operation/{id}/execute")
     @ResponseBody
     @Override
@@ -52,17 +49,23 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         AppResponse appResponse = new AppResponse();
 
-        content = cleanContent.apply(content);
+        content = content.replace("\r", "");
 
-        if (id.equals("generate_diagram")) {
+        if (id.equals("generate_file")) {
             ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
             appResponse.setStatus(AppResponse.Status.OK);
             String base64 = Base64.getEncoder().encodeToString(result.toByteArray());
             appResponse.setData(base64);
-            appResponse.setHtmlMessage("<p> Diagram generated </p>" +
-                    "<img style='display:block; width:100px;height:100px;' src ='data:image/png;base64," + base64 + "' />");
+            appResponse.setHtmlMessage("<p> File generated !</p>");
         } else if (id.equals("apply_theme")){
-
+            appResponse.setStatus(AppResponse.Status.OK);
+        } else if (id.equals("generate_console")){
+            ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
+            appResponse.setStatus(AppResponse.Status.OK);
+            String base64 = Base64.getEncoder().encodeToString(result.toByteArray());
+            appResponse.setData(base64);
+            appResponse.setHtmlMessage("<div id='base64PumlDiagram'><p> Diagram generated </p>" +
+                    "<img style='display:block; width:100%;height:100%;' src ='data:image/png;base64," + base64 + "' /></div>");
         }
 
         return appResponse;
@@ -75,7 +78,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         AppResponse appResponse = new AppResponse();
 
-        content = cleanContent.apply(content);
+        content = content.replace("\r", "");
 
         SyntaxResult syntaxResult = validationDiagramService.validateFromString(content);
 
@@ -124,8 +127,6 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
             os.write(IOUtils.toByteArray(jsFile));
             response.setContentType("application/javascript");
             os.close();
-
-            appResponse.setData(ThemeUtils.getAllThemeNames().stream().collect(Collectors.joining("#")));
 
         } catch (IOException e) {
             logger.error("An IO exception happened {}", e);
