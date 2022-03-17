@@ -44,7 +44,10 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
         if (id.equals("generate_diagram")) {
             ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
             appResponse.setStatus(AppResponse.Status.OK);
-            appResponse.setData(Base64.getEncoder().encodeToString(result.toByteArray()));
+            String base64 = Base64.getEncoder().encodeToString(result.toByteArray());
+            appResponse.setData(base64);
+            appResponse.setHtmlMessage("<p> Diagram generated </p>" +
+                    "<img style='display:block; width:100px;height:100px;' src ='data:image/png;base64,"+ base64 +"' />");
         }
 
         return appResponse;
