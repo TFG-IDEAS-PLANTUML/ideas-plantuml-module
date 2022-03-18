@@ -15,8 +15,8 @@
   ],
   "operations": [
     {
-      "id": "generate_diagram",
-      "name": "Generate diagram",
+      "id": "generate_file",
+      "name": "Generate file",
       "data": {},
       "_remoteExecution": "false",
       "action": "function(operationStructure){
@@ -69,6 +69,20 @@
         });
 	});
 }"
+    },
+    {
+      "id": "apply_theme",
+      "name": "Apply theme",
+      "data": {"themes": "_none_#amiga#aws-orange#black-knight#bluegray#blueprint#cerulean#cerulean-outline#crt-amber#crt-green#cyborg#cyborg-outline#hacker#lightgray#mars#materia#materia-outline#metal#mimeograph#minty#plain#reddress-darkblue#reddress-darkgreen#reddress-darkorange#reddress-darkred#reddress-lightblue#reddress-lightgreen#reddress-lightorange#reddress-lightred#sandstone#silver#sketchy#sketchy-outline#spacelab#spacelab-white#superhero#superhero-outline#toy#united#vibrant"},
+      "_remoteExecution": "false",
+      "action": "function getCode(e,t){document.getElementById(\"plantuml-module-data\")&&document.getElementById(\"plantuml-module-data\").remove();var a=document.createElement(\"script\");a.type=\"application/javascript\",a.id=\"plantuml-module-data\",a.text=\"var operationStructure = \"+JSON.stringify(e)+\";var fileUri = '\"+t+\"';\",document.body.appendChild(a),document.getElementById(\"plantuml-module-action\")&&document.getElementById(\"plantuml-module-action\").remove();a=document.createElement(\"script\");a.type=\"application/javascript\",a.id=\"plantuml-module-action\",a.src=ModeManager.getBaseUri(ModeManager.calculateModelIdFromExt(ModeManager.calculateExtFromFileUri(t)))+\"/language/operation/\"+e.id+\"/javascript\",document.body.appendChild(a),document.getElementById(\"plantuml-module-util\")||((a=document.createElement(\"script\")).type=\"application/javascript\",a.id=\"plantuml-module-util\",a.src=ModeManager.getBaseUri(ModeManager.calculateModelIdFromExt(ModeManager.calculateExtFromFileUri(t)))+\"/language/operation/util/javascript\",document.body.appendChild(a))}"
+    },
+    {
+      "id": "generate_console",
+      "name": "Generate in console",
+      "data": {"themes": "_none_#amiga#aws-orange#black-knight#bluegray#blueprint#cerulean#cerulean-outline#crt-amber#crt-green#cyborg#cyborg-outline#hacker#lightgray#mars#materia#materia-outline#metal#mimeograph#minty#plain#reddress-darkblue#reddress-darkgreen#reddress-darkorange#reddress-darkred#reddress-lightblue#reddress-lightgreen#reddress-lightorange#reddress-lightred#sandstone#silver#sketchy#sketchy-outline#spacelab#spacelab-white#superhero#superhero-outline#toy#united#vibrant"},
+      "_remoteExecution": "false",
+      "action": "function(operationStructure) {var fileUri = EditorManager.currentUri;CommandApi.doDocumentOperation(operationStructure.id, operationStructure.data, fileUri, function(result) { console.log(result);});}"
     }
   ],
   "templateProjects": null,
