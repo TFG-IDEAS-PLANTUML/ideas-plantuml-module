@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@master
         with:
           name: TFG-IDEAS-PLANTUML/ideas-base-module     <-- clone https://github.com/org1/repo1
-          ref: refs/heads/release
+          ref: refs/heads/master
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
