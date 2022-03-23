@@ -46,6 +46,7 @@ jobs:
         run: mkdir -p support && git mv $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml support/maven-settings.xml && heroku config:set MAVEN_SETTINGS_PATH=support/maven-settings.xml --app $HEROKU_APP_NAME
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Add Heroku remote
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
