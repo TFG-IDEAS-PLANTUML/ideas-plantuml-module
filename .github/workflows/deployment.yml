@@ -47,7 +47,7 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME} && git push heroku HEAD:master
+        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME} && git push heroku master
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
