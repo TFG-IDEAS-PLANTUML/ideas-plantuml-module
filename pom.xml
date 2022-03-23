@@ -36,7 +36,7 @@
         <repository>
             <id>github</id>
             <name>GitHub</name>
-            <url>https://maven.pkg.github.com/TFG-IDEAS-PLANTUML/ideas-base-module/</url>
+            <url>https://${env.GITHUB_TOKEN}:${env.GITHUB_TOKEN}@maven.pkg.github.com/TFG-IDEAS-PLANTUML/ideas-base-module/</url>
         </repository>
     </repositories>
 
