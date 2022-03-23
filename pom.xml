@@ -164,7 +164,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>PlantUml4IdeasModuleApplication</mainClass>
+                            <mainClass>es.us.isa.ideas.PlantUml4IdeasModuleApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
