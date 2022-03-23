@@ -27,24 +27,12 @@ jobs:
         run: mvn -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml -B package --file pom.xml
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
-      - name: Heroku login credentials
-        run: |
-          cat > ~/.netrc <<EOF
-            machine api.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-            machine git.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-          EOF
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: Add Heroku remote
-        run: heroku git:remote --app $HEROKU_APP_NAME
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      - name: Commit changes
-        run: git config --global user.email "angdelluntfg@gmail.com" && git config --global user.name "Angel Delgado" && git commit -m "init"
-      - name: Push to Heroku
-        run: git push heroku master
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          # This will be used for authentication. You can find it in your heroku homepage account settings
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+         # Email that you use with heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        # The appname to use for deploying/updating
+          heroku_app_name: ${{secrets.HEROKU_APP}}
