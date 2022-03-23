@@ -43,7 +43,9 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - name: Heroku Config Set
-        run: heroku config:set MAVEN_SETTINGS_PATH=$GITHUB_WORKSPACE/.github/workflows/maven-settings.xml
+        run: git add $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml && git commit -m "adding settings.xml" && git push heroku HEAD:master
+        env:
+          REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
       - name: Add Heroku remote
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
