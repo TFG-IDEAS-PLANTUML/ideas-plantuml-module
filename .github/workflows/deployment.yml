@@ -24,11 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Override settings
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir ~/.m2
-          echo "<settings><servers><server><id>github</id><username>angel96</username><password>${{ env.GITHUB_TOKEN }}</password></server></servers></settings>" > ~/.m2/settings.xml
+          echo "<settings><servers><server><id>github</id><username>angel96</username><password>${{ secrets.REPOSITORY_TOKEN }}</password></server></servers></settings>" > ~/.m2/settings.xml
       - name: Deploy to Heroku
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
