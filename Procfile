@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/ideas-plantuml-module-1.0-SNAPSHOT.war
+web: java -Dserver.port=$PORT -jar target/ideas-plantuml-module-1.0-SNAPSHOT.jar

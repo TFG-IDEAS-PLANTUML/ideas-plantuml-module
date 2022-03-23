@@ -14,7 +14,7 @@
     <groupId>es.us.isa.ideas.module.language</groupId>
     <artifactId>ideas-plantuml-module</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <ideas.base.module.version>0.7</ideas.base.module.version>
