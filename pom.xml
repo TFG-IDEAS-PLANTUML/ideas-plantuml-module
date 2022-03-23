@@ -157,18 +157,11 @@
             </plugin> -->
 
             <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.4.RELEASE</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>es.us.isa.ideas.PlantUml4IdeasModuleApplication</mainClass>
-                        </manifest>
-                    </archive>
+                    <addResources>true</addResources>
                 </configuration>
             </plugin>
 
