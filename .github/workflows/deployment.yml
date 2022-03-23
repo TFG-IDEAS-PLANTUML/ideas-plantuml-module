@@ -45,6 +45,6 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Commit changes
-        run: git commit -m "init"
+        run: git config --global user.email "angdelluntfg@gmail.com" && git config --global user.name "Angel Delgado" && git commit -m "init"
       - name: Push to Heroku
         run: git push heroku master
