@@ -26,7 +26,7 @@ jobs:
       - name: Build with Maven
         run: mvn -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml -B package --file pom.xml
         env:
-          gREPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+          REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
       - name: Deploy to Heroku
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
