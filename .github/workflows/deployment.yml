@@ -43,7 +43,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - name: Heroku Config Set
-        run: mkdir -p support && git mv $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml support/maven-settings.xml && heroku config:set MAVEN_SETTINGS_PATH=support/maven-settings.xml --app $HEROKU_APP_NAME
+        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME}
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
