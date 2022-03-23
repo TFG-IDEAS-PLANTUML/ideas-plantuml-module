@@ -42,14 +42,12 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: Heroku Config Set
-        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME}
-        env:
-          REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Add Heroku remote
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: git push heroku HEAD:master
+        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME} && git push heroku HEAD:master
+        env:
+          REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
