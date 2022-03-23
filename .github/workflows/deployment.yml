@@ -23,10 +23,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-      - name: Override settings
-        run: |
-          mkdir ~/.m2
-          echo "<?xml version="1.0"?><settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0                       http://maven.apache.org/xsd/settings-1.0.0.xsd"><activeProfiles><activeProfile>github</activeProfile></activeProfiles><profiles><profile><id>github</id><repositories><repository><id>central</id><url>https://repo1.maven.org/maven2</url></repository><repository><id>github</id><url>https://maven.pkg.github.com/TFG-IDEAS-PLANTUML/ideas-base-module</url><snapshots><enabled>true</enabled></snapshots></repository></repositories></profile></profiles><servers><server><id>github</id><username>angel96</username><password>${{secrets.REPOSITORY_TOKEN}}</password></server></servers></settings>" > ~/.m2/settings.xml
+      - name: Build with Maven
+          run: mvn -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml -B package --file pom.xml
+          env:
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Deploy to Heroku
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
