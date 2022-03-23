@@ -164,6 +164,8 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>es.us.isa.ideas.PlantUml4IdeasModuleApplication</mainClass>
                         </manifest>
                     </archive>
