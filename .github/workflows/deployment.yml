@@ -26,7 +26,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build with Maven
-        run: mvn -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml -B package --file pom.xml
+        run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package --file pom.xml
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
       - name: Heroku login credentials
@@ -47,7 +47,7 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: heroku config:set MAVEN_SETTINGS_URL="https://github.com/TFG-IDEAS-PLANTUML/ideas-plantuml-module/blob/feature/ci-heroku-deployment/.github/workflows/maven-settings.xml" --app ${HEROKU_APP_NAME} && git push heroku HEAD:master
+        run: git push heroku HEAD:master
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
