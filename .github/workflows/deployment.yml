@@ -23,6 +23,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
+      - name: Override settings
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir ~/.m2
+          echo "<settings><servers><server><id>github</id><username>TFG-IDEAS-PLANTUML</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
       - name: Deploy to Heroku
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
