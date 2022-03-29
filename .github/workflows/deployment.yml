@@ -47,7 +47,7 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: heroku config:set REPOSITORY_TOKEN=${REPOSITORY_TOKEN} && git push heroku HEAD:master
+        run: heroku config:set REPOSITORY_TOKEN=${REPOSITORY_TOKEN} && git pull heroku HEAD:master && git push heroku HEAD:master
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
