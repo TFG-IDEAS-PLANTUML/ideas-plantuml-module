@@ -42,6 +42,8 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Add GraphViz buildpack
+        run: heroku create --buildpack https://github.com/weibeld/heroku-buildpack-graphviz.git
       - name: Add Heroku remote
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
