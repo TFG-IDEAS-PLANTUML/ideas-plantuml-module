@@ -14,7 +14,7 @@
     <groupId>es.us.isa.ideas.module.language</groupId>
     <artifactId>ideas-plantuml-module</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <ideas.base.module.version>0.7</ideas.base.module.version>
@@ -23,6 +23,22 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <plantuml.version>1.2022.1</plantuml.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/TFG-IDEAS-PLANTUML/ideas-base-module/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/TFG-IDEAS-PLANTUML/ideas-base-module/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
 
@@ -139,6 +155,15 @@
                     </execution>
                 </executions>
             </plugin> -->
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.4.RELEASE</version>
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
