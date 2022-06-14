@@ -30,6 +30,6 @@ jobs:
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
       - name: Sonarqube
-        run: mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=angel96 -Dsonar.projectKey=angel96_puml
+        run: mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=tfg-ideas-plantuml -Dsonar.projectKey=TFG-IDEAS-PLANTUML_ideas-plantuml-module
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
