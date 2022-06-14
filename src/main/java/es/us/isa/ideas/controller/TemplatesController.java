@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+//Base on Latex module
 @Controller
 @RequestMapping("/ideas-plantuml-language/template")
 public class TemplatesController {
@@ -29,7 +30,7 @@ public class TemplatesController {
     
     @GetMapping("/document")
     @ResponseBody
-    public List<TemplateDocument> getTemplateDocuments(HttpServletRequest request,HttpServletResponse respons){
+    public List<TemplateDocument> getTemplateDocuments(HttpServletRequest request,HttpServletResponse response){
 
         List<TemplateDocument> result= new ArrayList<>();
         ServletContext sc = request.getSession().getServletContext();
@@ -44,7 +45,7 @@ public class TemplatesController {
 
             result = Arrays.stream(templates).filter(file -> file.getName().endsWith(extension))
                     .map(file -> new TemplateDocument(file.getName(),
-                            generateDependencesFromFiles(file.getName().replace(extension,""),templates)))
+                            generateDependenciesFromFiles(file.getName().replace(extension,""),templates)))
                     .collect(Collectors.toList());
         }
 
@@ -53,7 +54,7 @@ public class TemplatesController {
     
     @RequestMapping("/dependences/document/{name:.+}")
     @ResponseBody
-    public List<String> getDependences(@PathVariable("name") String name,HttpServletRequest request,HttpServletResponse response){
+    public List<String> getDependencies(@PathVariable("name") String name,HttpServletRequest request,HttpServletResponse response){
         List<String> result=new ArrayList<>();
         ServletContext sc = request.getSession().getServletContext();
         String realPath = sc.getRealPath("/WEB-INF/classes/repo/templates/documents");
@@ -61,12 +62,12 @@ public class TemplatesController {
         File repo=new File(realPath);
         if(repo.exists() && repo.isDirectory()){
             File [] templates=repo.listFiles();
-            result=generateDependencesFromFiles(name.replace(extension,""),templates);
+            result=generateDependenciesFromFiles(name.replace(extension,""),templates);
         }
         return result;
     }
-    
-    private List<String> generateDependencesFromFiles(String name, File[] templates){
+
+    private List<String> generateDependenciesFromFiles(String name, File[] templates){
         return Arrays.stream(templates).filter(f -> f.getName().contains(name) && !f.getName().endsWith(extension))
                 .map(File::getName).collect(Collectors.toList());
     }
@@ -125,7 +126,7 @@ public class TemplatesController {
             File [] templates=repo.listFiles();
             for(File f:templates){
                 if(f.isDirectory()){                    
-                  dependences=generateDependencesFromFiles(f.getName().replace(extension,""),templates);
+                  dependences=generateDependenciesFromFiles(f.getName().replace(extension,""),templates);
                   td=new TemplateProject(f.getName(),"");                  
                   result.add(td);
                 }

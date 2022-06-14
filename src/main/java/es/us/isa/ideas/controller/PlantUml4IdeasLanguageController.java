@@ -7,7 +7,6 @@ import es.us.isa.ideas.service.GenerateDiagramService;
 import es.us.isa.ideas.service.ValidationDiagramService;
 import net.sourceforge.plantuml.LineLocation;
 import net.sourceforge.plantuml.syntax.SyntaxResult;
-import net.sourceforge.plantuml.theme.ThemeUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
@@ -26,8 +25,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -139,6 +136,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
     @ResponseBody
     @Override
     public AppResponse convertFormat(String currentFormat, String desiredFormat, String fileUri, String content, HttpServletRequest httpServletRequest) {
+        logger.info("Receiving request {} {} {} {}", currentFormat, desiredFormat, fileUri, content);
         return new AppResponse();
     }
 }

@@ -29,6 +29,15 @@ jobs:
         run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package --file pom.xml
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+      - name: Sonarcloud Report
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=angel96-puml
+            -Dsonar.verbose=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Heroku login credentials
         run: |
           cat > ~/.netrc <<EOF
@@ -42,6 +51,7 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
       - name: Add Heroku remote
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
