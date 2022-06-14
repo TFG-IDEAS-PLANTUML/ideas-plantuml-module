@@ -1,0 +1,36 @@
+{
+  "id": "ideas-plantuml-language",
+  "extension": "puml",
+  "name": "PlantUml",
+  "defaultFileName": "default.puml",
+  "formats": [
+    {
+      "format": "puml",
+      "editorModeId": "ace/mode/puml",
+      "_editorModeURI": "mode-puml.js",
+      "editorThemeId": "ace/theme/puml",
+      "_editorThemeURI": "theme-puml.js",
+      "checkLanguage": "true"
+    }
+  ],
+  "operations": [
+    {
+      "id": "generate_diagram",
+      "name": "Generate diagram",
+      "data": {},
+      "_remoteExecution": "false",
+      "action": ""
+
+    },
+    {
+      "id": "apply_theme",
+      "name": "Apply theme",
+      "data": {},
+      "_remoteExecution": "false",
+      "action": "function getCode(e, t) {document.getElementById('plantuml-module-data') && document.getElementById('plantuml-module-data').remove(); var a = document.createElement('script');a.type = 'application/javascript', a.id = 'plantuml-module-data', a.text = 'var operationStructure = ' + JSON.stringify(e) + ';var fileUri = '' + t + '';', document.body.appendChild(a), document.getElementById('plantuml-module-action') && document.getElementById('plantuml-module-action').remove();a = document.createElement('script');a.type = 'application/javascript', a.id = 'plantuml-module-action', a.src = ModeManager.getBaseUri(ModeManager.calculateModelIdFromExt(ModeManager.calculateExtFromFileUri(t))) + '/language/operation/' + e.id + '/javascript', document.body.appendChild(a), document.getElementById('plantuml-module-util') || ((a = document.createElement('script')).type = 'application/javascript', a.id = 'plantuml-module-util', a.src = ModeManager.getBaseUri(ModeManager.calculateModelIdFromExt(ModeManager.calculateExtFromFileUri(t))) + '/language/operation/util/javascript', document.body.appendChild(a))}"
+    }
+  ],
+  "templateProjects": null,
+  "templateFiles": null,
+  "inspectorLoader": "function(loader, format) {}"
+}

@@ -1,0 +1,9 @@
+@startuml
+
+[First component]
+
+note left
+Esto es una nota
+endnote
+
+@enduml
