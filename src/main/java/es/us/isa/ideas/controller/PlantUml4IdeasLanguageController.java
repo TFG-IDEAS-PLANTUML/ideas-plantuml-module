@@ -79,7 +79,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
 
         SyntaxResult syntaxResult = validationDiagramService.validateFromString(content);
 
-        boolean problems = !content.isEmpty() ? syntaxResult.isError() : true;
+        boolean problems = content.isEmpty() || syntaxResult.isError();
 
         appResponse.setFileUri(fileUri);
 
@@ -126,7 +126,7 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
             os.close();
 
         } catch (IOException e) {
-            logger.error("An IO exception happened {}", e);
+            logger.error("An IO exception happened with message {} and exception {}", e.getMessage(), e.getCause());
         }
 
         return appResponse;
@@ -136,7 +136,6 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
     @ResponseBody
     @Override
     public AppResponse convertFormat(String currentFormat, String desiredFormat, String fileUri, String content, HttpServletRequest httpServletRequest) {
-        logger.info("Receiving request {} {} {} {}", currentFormat, desiredFormat, fileUri, content);
         return new AppResponse();
     }
 }
