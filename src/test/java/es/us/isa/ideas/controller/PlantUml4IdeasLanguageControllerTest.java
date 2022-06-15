@@ -57,6 +57,21 @@ public class PlantUml4IdeasLanguageControllerTest {
     }
 
     @Test
+    public void checkLanguageEmpty() throws Exception {
+
+        String source = "";
+
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_PATH + "/format/puml/checkLanguage")
+                        .param("id", "no available")
+                        .param("content", source)
+                        .param("fileUri", "no available"))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value("OK_PROBLEMS"));
+    }
+
+    @Test
     public void checkLanguageFail() throws Exception {
         String source = "@startuml\n";
         source += "String name\n";

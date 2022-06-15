@@ -77,56 +77,5 @@ public class TemplatesController {
             return name;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-    }
-
-    @RequestMapping("/project")
-    @ResponseBody
-    public List<TemplateProject> getTemplateProjects(HttpServletRequest request, HttpServletResponse response) {
-        List<TemplateProject> result = new ArrayList<>();
-        ServletContext sc = request.getSession().getServletContext();
-        String realPath = sc.getRealPath("/WEB-INF/classes/repo/templates/projects");
-        logger.info(SEARCHING_FOR, realPath);
-        File repo = new File(realPath);
-
-        if (repo.exists() && repo.isDirectory()) {
-            File[] templates = repo.listFiles();
-            for (File f : templates) {
-                if (f.isDirectory()) {
-                    result.add(new TemplateProject(f.getName(), ""));
-                }
-            }
-        }
-        return result;
-    }
-
-    class TemplateProject {
-        String name;
-        String description;
-
-        public TemplateProject(String name, String description) {
-            this.name = name;
-            this.description = description;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
     }
 }
