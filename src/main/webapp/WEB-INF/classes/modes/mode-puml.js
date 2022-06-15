@@ -33,9 +33,11 @@ var PumlHighlightRules = function() {
     var keywordMapper = this.createKeywordMapper({
 
                 "keyword": "if|else|do|while|endif|endwhile|then|package|theme|" +
-                           "skinparam|left|right|document|componentDiagram",
+                           "skinparam|left|right|document|componentDiagram|" +
+                           "class|Annotation|alt|as|note|end",
                 "entity.name.function.activity": "start|stop|cloud|actor|"+
-                           "component|node|agent|rectangle|query|rectangle"
+                           "component|node|agent|rectangle|query|rectangle|" +
+                           "string|int|bool|double|float"
 
             }, "identifier");
 
