@@ -54,9 +54,9 @@ public class PlantUml4IdeasLanguageController extends BaseLanguageController {
             String base64 = Base64.getEncoder().encodeToString(result.toByteArray());
             appResponse.setData(base64);
             appResponse.setHtmlMessage("<p> File generated !</p>");
-        } else if (id.equals("apply_theme")){
+        } else if (id.equals("apply_theme")) {
             appResponse.setStatus(AppResponse.Status.OK);
-        } else if (id.equals("generate_console")){
+        } else if (id.equals("generate_console")) {
             ByteArrayOutputStream result = this.generateDiagramService.generateDiagramFromString(content);
             appResponse.setStatus(AppResponse.Status.OK);
             String base64 = Base64.getEncoder().encodeToString(result.toByteArray());

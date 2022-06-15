@@ -1,15 +1,12 @@
 package es.us.isa.ideas.service;
 
-import net.sourceforge.plantuml.FileFormat;
-import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
-import net.sourceforge.plantuml.core.Diagram;
-import net.sourceforge.plantuml.core.ImageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 @Service
 public class GenerateDiagramService {
@@ -20,7 +17,7 @@ public class GenerateDiagramService {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        try  {
+        try {
             logger.info("Printing file for diagram {} in location {}", diagram);
             SourceStringReader sourceStringReader = new SourceStringReader(diagram);
             sourceStringReader.outputImage(os);
