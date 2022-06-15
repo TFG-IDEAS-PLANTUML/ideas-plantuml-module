@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {ValidationDiagramService.class})
-@ActiveProfiles("test")
+@ActiveProfiles("junit")
 public class ValidationDiagramServiceTest {
 
     @Autowired
