@@ -18,10 +18,8 @@ public class GenerateDiagramService {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
         try {
-            logger.info("Printing file for diagram {} in location {}", diagram);
             SourceStringReader sourceStringReader = new SourceStringReader(diagram);
             sourceStringReader.outputImage(os);
-
         } catch (IOException e) {
             logger.error("Exception thrown when creating diagram {} " +
                             "with error {}", diagram,

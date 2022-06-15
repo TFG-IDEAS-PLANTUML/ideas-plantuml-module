@@ -10,13 +10,9 @@ import org.springframework.util.Assert;
 @Service
 public class ValidationDiagramService {
 
-    private Logger logger = LoggerFactory.getLogger(ValidationDiagramService.class);
-
     public SyntaxResult validateFromString(String source) {
         Assert.notNull(source, "Source can not be null");
-        logger.info("Validating entry source {} ", source);
         SyntaxResult syntaxResult = SyntaxChecker.checkSyntax(source);
-        logger.info("Syntax result object created from source {}", source);
         return syntaxResult;
     }
 
