@@ -29,6 +29,10 @@ jobs:
         run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package --file pom.xml
         env:
           REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+      - name: Sonarqube
+        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=tfg-ideas-plantuml -Dsonar.login=$SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Heroku login credentials
         run: |
           cat > ~/.netrc <<EOF
