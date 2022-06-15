@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = PlantUml4IdeasLanguageController.class)
-@ActiveProfiles("test")
+@ActiveProfiles("junit")
 public class PlantUml4IdeasLanguageControllerTest {
 
     @Autowired
