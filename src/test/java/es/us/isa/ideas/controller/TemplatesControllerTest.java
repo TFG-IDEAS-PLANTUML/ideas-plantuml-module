@@ -38,11 +38,5 @@ public class TemplatesControllerTest {
                 .andExpect(status().isOk()).andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
-
-    @Test
-    public void getTemplateProjects() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_PATH + "/project"))
-                .andExpect(status().isOk()).andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
+    
 }
